@@ -22,7 +22,5 @@ public class Country {
     @Column(name="name")
     private String name;
 
-    @OneToOne(mappedBy = "country")
-    @JsonBackReference
-    private Address address;
+
 }

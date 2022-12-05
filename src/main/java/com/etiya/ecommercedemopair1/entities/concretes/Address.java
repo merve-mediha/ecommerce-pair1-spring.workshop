@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Address {
     private int id;
 
     @Column(name="postalcode")
-    private int postalcode;
+    private int postalCode;
 
     @Column(name="street")
     private String street;

@@ -25,8 +25,6 @@ public class City {
     @Column(name="plate_number")
     private int plateNumber;
 
-    @OneToOne(mappedBy = "city")
-    @JsonBackReference
-    private Address address;
+
 
 }
