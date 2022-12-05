@@ -22,4 +22,9 @@ public class AddressManager implements AddressService {
     public List<Address> getAddressesByCityName(String name) {
         return addressRepository.getAddressesByCityNameUsingNative(name);
     }
+
+    @Override
+    public Address getById(int id) {
+        return null;
+    }
 }

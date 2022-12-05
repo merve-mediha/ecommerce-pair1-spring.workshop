@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface AddressService {
     List<Address> getAddressesByCityName(String name);
+
+    Address getById(int id);
 }
