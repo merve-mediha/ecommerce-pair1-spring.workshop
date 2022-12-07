@@ -13,7 +13,4 @@ import java.util.List;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 
-    @Transactional
-    @Query(value= "SELECT new com.etiya.ecommercedemopair1.business.dto.GetAllAddressDto FROM Addresses as a JOIN a.cities as c WHERE c.name=:name", nativeQuery = true)
-    List<Address> getAddressesByCityNameUsingNative(@Param("name") String name);
 }

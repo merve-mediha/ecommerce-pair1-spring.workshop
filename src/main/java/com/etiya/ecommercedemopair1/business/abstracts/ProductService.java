@@ -1,5 +1,7 @@
 package com.etiya.ecommercedemopair1.business.abstracts;
 
+import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
+import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
 import com.etiya.ecommercedemopair1.entities.concretes.Product;
 import org.springframework.data.repository.query.Param;
 
@@ -12,5 +14,9 @@ public interface ProductService {
     List<Product> findAllProductsByStockGreaterThanOrderByStockAsc(int stock);
 
     List<Product> findAllByOrderByNameAsc();
-    String getName(int id);
+    Product getByName(String name);
+    String getProductNameWithId(int id);
+
+    GetProductResponse addProduct(AddProductRequest addProductRequest);
+
 }
