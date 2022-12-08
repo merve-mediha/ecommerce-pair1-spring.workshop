@@ -65,6 +65,10 @@ public class ProductsController {
         return new ResponseEntity<GetProductResponse>(productService.addProduct(addProductRequest), HttpStatus.CREATED);
     }
 
+    @GetMapping("/findByCategoryName")
+    public List<Product> findProductByCategoryByName(@RequestParam("name") String name){
+        return productService.findProductByCategoryByName(name);
+    }
 
 
 }

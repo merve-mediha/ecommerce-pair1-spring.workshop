@@ -7,14 +7,8 @@ import com.etiya.ecommercedemopair1.business.abstracts.UserService;
 import com.etiya.ecommercedemopair1.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.address.GetAddressResponse;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
-import com.etiya.ecommercedemopair1.entities.concretes.Address;
-import com.etiya.ecommercedemopair1.entities.concretes.City;
-import com.etiya.ecommercedemopair1.entities.concretes.Country;
-import com.etiya.ecommercedemopair1.entities.concretes.User;
-import com.etiya.ecommercedemopair1.repository.abstracts.AddressRepository;
-import com.etiya.ecommercedemopair1.repository.abstracts.CityRepository;
-import com.etiya.ecommercedemopair1.repository.abstracts.CountryRepository;
-import com.etiya.ecommercedemopair1.repository.abstracts.UserRepository;
+import com.etiya.ecommercedemopair1.entities.concretes.*;
+import com.etiya.ecommercedemopair1.repository.abstracts.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +30,7 @@ public class AddressManager implements AddressService {
 
     @Override
     public List<Address> getAddressesByCityName(String name) {
-        return null;
+        return addressRepository.findAddressByCityName(name);
     }
 
     @Override
@@ -82,6 +76,7 @@ public class AddressManager implements AddressService {
 
         return getAddressResponse;
     }
+
 
     private void checkUserExists(int id) {
 

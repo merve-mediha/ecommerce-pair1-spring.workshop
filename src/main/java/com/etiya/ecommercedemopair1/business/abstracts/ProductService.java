@@ -19,4 +19,6 @@ public interface ProductService {
 
     GetProductResponse addProduct(AddProductRequest addProductRequest);
 
+    List<Product> findProductByCategoryByName(String name);
+
 }

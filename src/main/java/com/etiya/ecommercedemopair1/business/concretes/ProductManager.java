@@ -70,6 +70,11 @@ public class ProductManager implements ProductService {
         return getProductResponse;
     }
 
+    @Override
+    public List<Product> findProductByCategoryByName(String name) {
+        return productRepository.findProductByCategoryByName(name);
+    }
+
     public void checkCategoryWithId(int id) {
         boolean isExists = categoryRepository.existsById(id);
         if (!isExists) {
