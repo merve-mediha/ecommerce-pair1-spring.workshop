@@ -21,4 +21,6 @@ public interface ProductService {
 
     List<Product> findProductByCategoryByName(String name);
 
+    List<GetProductResponse> getProductsByCategoryId(int identity);
+
 }

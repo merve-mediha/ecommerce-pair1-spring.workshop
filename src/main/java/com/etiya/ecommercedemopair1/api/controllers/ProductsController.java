@@ -3,6 +3,7 @@ package com.etiya.ecommercedemopair1.api.controllers;
 
 import com.etiya.ecommercedemopair1.business.abstracts.ProductService;
 
+import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
 import com.etiya.ecommercedemopair1.entities.concretes.Product;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(Paths.apiPrefix +"products")
 public class ProductsController {
     private final ProductService productService;
 
@@ -68,6 +69,11 @@ public class ProductsController {
     @GetMapping("/findByCategoryName")
     public List<Product> findProductByCategoryByName(@RequestParam("name") String name){
         return productService.findProductByCategoryByName(name);
+    }
+
+    @GetMapping("getProductsByCategory")
+    public List<GetProductResponse> getProductsByCategoryId(int identity){
+        return productService.getProductsByCategoryId(identity);
     }
 
 

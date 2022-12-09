@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair1.api.controllers;
 
 import com.etiya.ecommercedemopair1.business.abstracts.CustomerService;
+import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.customer.AddCustomerRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse;
 import com.etiya.ecommercedemopair1.entities.concretes.Customer;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/customers")
+@RequestMapping(Paths.apiPrefix +"customers")
 @RestController
 public class CustomersController {
     private final CustomerService customerService;

@@ -16,6 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     String findEmailByName(String name);
     @Query("select c from Customer c where c.gender=:gender")
     List<Customer> getCustomerWithGender(String gender);
+    boolean existsById(int id);
 
 
 //    @Query("Select c from Address as a join a.User as u join u.Customer as c Where a.id=:id")

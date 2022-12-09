@@ -5,4 +5,5 @@ import org.modelmapper.ModelMapper;
 public interface ModelMapperService {
     ModelMapper getMapperforResponse();
     ModelMapper getMapperforRequest();
+    ModelMapper getMapperforStrict();
 }

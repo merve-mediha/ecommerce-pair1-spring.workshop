@@ -22,5 +22,5 @@ public class Country {
     @Column(name="name")
     private String name;
 
-
+// CountryId
 }

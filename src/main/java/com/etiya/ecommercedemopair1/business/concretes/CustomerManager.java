@@ -64,4 +64,9 @@ public class CustomerManager implements CustomerService {
 
         return getCustomerResponse;
     }
+
+    @Override
+    public boolean existsById(int id) {
+        return customerRepository.existsById(id);
+    }
 }

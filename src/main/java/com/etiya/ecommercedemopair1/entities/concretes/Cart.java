@@ -21,7 +21,7 @@ public class Cart {
     @Column(name="total_price")
     private double totalPrice;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="customer_id")
     private Customer customer;
 

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@Configuration
+
 @EnableJpaRepositories(basePackages = {"com.etiya.ecommercedemopair1.repository.abstracts"})
 public class EcommerceDemoPair1Application {
 

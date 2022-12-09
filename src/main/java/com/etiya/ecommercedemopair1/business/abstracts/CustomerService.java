@@ -19,4 +19,5 @@ public interface CustomerService {
 
     GetCustomerResponse addCustomerWithCustomerInfo(AddCustomerRequest addCustomerRequest); // Bir de Response'lu görelim.addCustomer gibi.
 
+    boolean existsById(int id);
 }

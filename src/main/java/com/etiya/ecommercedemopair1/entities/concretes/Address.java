@@ -38,6 +38,7 @@ public class Address {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name="city_id")
     private City city;
+    //OneToMany
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name="country_id")

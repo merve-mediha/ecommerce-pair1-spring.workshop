@@ -75,11 +75,18 @@ public class ProductManager implements ProductService {
         return productRepository.findProductByCategoryByName(name);
     }
 
+    @Override
+    public List<GetProductResponse> getProductsByCategoryId(int identity) {
+        return productRepository.getProductsByCategoryId(identity);
+    }
+
     public void checkCategoryWithId(int id) {
         boolean isExists = categoryRepository.existsById(id);
         if (!isExists) {
             throw new RuntimeException("This category doesn't exist. Could not be added prod");
         }
     }
+
+
 
 }

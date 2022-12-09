@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair1.api.controllers;
 
 import com.etiya.ecommercedemopair1.business.abstracts.SupplierService;
+import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.supplier.AddSupplierRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.supplier.GetSupplierResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/supplier")
+@RequestMapping(Paths.apiPrefix +"supplier")
 public class SuppliersController {
     private SupplierService supplierService;
 
