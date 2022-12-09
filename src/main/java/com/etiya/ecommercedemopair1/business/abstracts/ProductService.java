@@ -9,12 +9,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getAll();
-    Product getById(int id);
+    DataResult<List<GetProductResponse>> getAll();
+    DataResult<GetProductResponse> getById(int id);
 
-    DataResult<List<Product>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock);
+    DataResult<List<GetProductResponse>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock);
 
-    DataResult<List<Product>> findAllByOrderByNameAsc();
+    DataResult<List<GetProductResponse>> findAllByOrderByNameAsc();
     DataResult<GetProductResponse> getByName(String name);
     String getProductNameWithId(int id);
 

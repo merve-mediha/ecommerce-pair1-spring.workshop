@@ -25,6 +25,11 @@ public class City {
     @Column(name="plate_number")
     private int plateNumber;
 
+    @ManyToOne
+    @JoinColumn(name="country_id")
+    private Country country;
 
+    @OneToMany
+    private List<Address> addresses;
 
 }

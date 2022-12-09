@@ -29,23 +29,37 @@ public class ProductManager implements ProductService {
 
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public DataResult<List<GetProductResponse>> getAll() {
+        List<Product> products = productRepository.findAll();
+        List<GetProductResponse> responses = products.stream()
+                .map(product -> modelMapperService.getMapperforResponse()
+                        .map(product,GetProductResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
     }
 
     @Override
-    public Product getById(int id) {
-        return productRepository.findById(id).orElseThrow();
+    public DataResult<GetProductResponse> getById(int id) {
+        Product product = productRepository.findById(id).orElseThrow();
+        GetProductResponse response = modelMapperService.getMapperforResponse().map(product,GetProductResponse.class);
+        return new SuccessDataResult<GetProductResponse>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
     }
 
     @Override
-    public DataResult<List<Product>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock) {
+    public DataResult<List<GetProductResponse>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock) {
+        List<Product> products = productRepository.findAllProductsByStockGreaterThanOrderByStockAsc(stock);
+        List<GetProductResponse> reponses = products.stream()
+                .map(product -> modelMapperService.getMapperforResponse()
+                .map(product,GetProductResponse.class)).collect(Collectors.toList());
         return new SuccessDataResult<>(Messages.AllSuffix.getAllSuffixOfMessages + "by stock");
     }
 
     @Override
-    public DataResult<List<Product>> findAllByOrderByNameAsc() {
-        return new SuccessDataResult<>(Messages.AllSuffix.getAllSuffixOfMessages + "by name alphabetically");
+    public DataResult<List<GetProductResponse>> findAllByOrderByNameAsc() {
+        List<Product> products = productRepository.findAllByOrderByNameAsc();
+        List<GetProductResponse> getProductResponses= products.stream()
+                .map(product -> modelMapperService.getMapperforResponse()
+                .map(product,GetProductResponse.class)).collect(Collectors.toList());
+        return new SuccessDataResult<List<GetProductResponse>>(Messages.AllSuffix.getAllSuffixOfMessages + "by name alphabetically");
     }
 
     @Override

@@ -22,5 +22,6 @@ public class Country {
     @Column(name="name")
     private String name;
 
-// CountryId
+    @OneToMany(mappedBy = "country")
+    List<City> cities;
 }

@@ -34,14 +34,14 @@ public class CategoryManager implements CategoryService {
     public DataResult<GetCategoryResponse> getById(int id) {
         Category category = categoryRepository.findById(id).orElseThrow();
         GetCategoryResponse response = modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class);
-        return new SuccessDataResult<>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
+        return new SuccessDataResult<GetCategoryResponse>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
     }
 
     @Override
     public DataResult<List<GetCategoryResponse>> findAllByName(String name) {
         List<Category> categories = categoryRepository.findAllByName(name);
         List<GetCategoryResponse> responses = categories.stream().map(category -> modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
     }
 
     @Override

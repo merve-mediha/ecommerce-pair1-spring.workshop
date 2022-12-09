@@ -35,14 +35,14 @@ public class Address {
     @JsonBackReference
     private User user;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name="city_id")
     private City city;
-    //OneToMany
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name="country_id")
-    private Country country;
+
+//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+//    @JoinColumn(name="country_id")
+//    private Country country;
 
     @OneToMany(mappedBy = "address")
     @JsonIgnoreProperties("Address")

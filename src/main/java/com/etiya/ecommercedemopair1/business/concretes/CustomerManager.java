@@ -38,7 +38,7 @@ public class CustomerManager implements CustomerService {
     public DataResult<GetCustomerResponse> getById(int id) {
         Customer customer = customerRepository.findById(id).orElseThrow();
         GetCustomerResponse response = modelMapperService.getMapperforResponse().map(customer, GetCustomerResponse.class);
-        return new SuccessDataResult<>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
+        return new SuccessDataResult<GetCustomerResponse>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CustomerManager implements CustomerService {
         List<GetCustomerResponse> responses = customers.stream()
                 .map(customer -> modelMapperService.getMapperforResponse()
                         .map(customer, GetCustomerResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by customers' gender");
+        return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by customers' gender");
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CustomerManager implements CustomerService {
 
         GetCustomerResponse getCustomerResponse = modelMapperService.getMapperforResponse().map(savedCustomer,GetCustomerResponse.class);
 
-        return new SuccessDataResult<>(getCustomerResponse, Messages.AllSuffix.addSuffixOfMessages);
+        return new SuccessDataResult<GetCustomerResponse>(getCustomerResponse, Messages.AllSuffix.addSuffixOfMessages);
     }
 
     @Override

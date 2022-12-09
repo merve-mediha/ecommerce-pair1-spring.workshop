@@ -1,6 +1,9 @@
 package com.etiya.ecommercedemopair1.business.concretes;
 
 import com.etiya.ecommercedemopair1.business.abstracts.UserService;
+import com.etiya.ecommercedemopair1.business.constants.Messages;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
+import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.User;
 import com.etiya.ecommercedemopair1.repository.abstracts.UserRepository;
 import lombok.AllArgsConstructor;
@@ -14,8 +17,9 @@ public class UserManager implements UserService {
 
 
     @Override
-    public User findById(int id) {
-        return this.userRepository.findById(id);
+    public DataResult<User> findById(int id) {
+        User user = userRepository.findById(id);
+        return new SuccessDataResult<User>(user, Messages.AllSuffix.getByIdSuffixOfMessages);
     }
 
     @Override

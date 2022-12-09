@@ -4,11 +4,12 @@ import com.etiya.ecommercedemopair1.business.abstracts.SupplierService;
 import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.supplier.AddSupplierRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.supplier.GetSupplierResponse;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
+import com.etiya.ecommercedemopair1.core.util.results.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(Paths.apiPrefix +"supplier")
@@ -21,13 +22,17 @@ public class SuppliersController {
     }
 
     @PostMapping("/addSupplier")
-    public void addSupplier(@RequestBody AddSupplierRequest addSupplierRequest) {
-        this.supplierService.addSupplier(addSupplierRequest);
+    public Result addSupplier(@RequestBody AddSupplierRequest addSupplierRequest) {
+        return this.supplierService.addSupplier(addSupplierRequest);
     }
 
     @PostMapping("/addSupplierGetInfo")
-    public GetSupplierResponse addSupplierGetInfo(@RequestBody AddSupplierRequest addSupplierRequest) {
-        return supplierService.getSupplierWithInfo(addSupplierRequest);
+    public DataResult<GetSupplierResponse> addSupplierGetInfo(@RequestBody AddSupplierRequest addSupplierRequest) {
+        return supplierService.addSupplierWithInfo(addSupplierRequest);
     }
 
+    @GetMapping("/getAll")
+    public DataResult<List<GetSupplierResponse>> getAll(){
+        return supplierService.getAll();
+    }
 }

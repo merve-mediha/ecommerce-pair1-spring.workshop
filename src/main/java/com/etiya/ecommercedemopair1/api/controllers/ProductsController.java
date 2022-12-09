@@ -28,17 +28,17 @@ public class ProductsController {
 
 
     @GetMapping("/getAll")
-    public List<Product> getAll() {
+    public DataResult<List<GetProductResponse>> getAll() {
         return productService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public Product getById(@PathVariable int id) {
+    public DataResult<GetProductResponse> getById(@PathVariable int id) {
         return productService.getById(id);
     }
 
     @GetMapping("/getAllProductsByStockGreaterThan")
-    public DataResult<List<Product>> findAllProductsByStockGreaterThanOrderByStockAsc(@RequestParam int stock) {
+    public DataResult<List<GetProductResponse>> findAllProductsByStockGreaterThanOrderByStockAsc(@RequestParam int stock) {
 
         return productService.findAllProductsByStockGreaterThanOrderByStockAsc(stock);
     }
@@ -48,7 +48,7 @@ public class ProductsController {
     }
 
     @GetMapping("/getAlphabeticProduct")
-    public DataResult<List<Product>> findAllByOrderByNameAsc() {
+    public DataResult<List<GetProductResponse>> findAllByOrderByNameAsc() {
         return this.productService.findAllByOrderByNameAsc();
     }
 
