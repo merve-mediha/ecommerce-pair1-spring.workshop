@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair1.business.abstracts.CategoryService;
 import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,22 +26,22 @@ public class CategoriesController {
     }
 
     @GetMapping("/getAll")
-    public List<Category> getAll() {
+    public DataResult<List<GetCategoryResponse>> getAll() {
         return this.categoryService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public Category getById(@PathVariable int id) {
+    public DataResult<GetCategoryResponse> getById(@PathVariable int id) {
         return this.categoryService.getById(id);
     }
 
     @GetMapping("/getByName")
-    List<Category> findAllByName(@RequestParam("name") String name) {
+    public DataResult<List<GetCategoryResponse>> findAllByName(@RequestParam("name") String name) {
         return this.categoryService.findAllByName(name);
     }
 
     @GetMapping("/getByIdDesc")
-    public List<Category> getCategoryWithIdDesc() {
+    public DataResult<List<GetCategoryResponse>> getCategoryWithIdDesc() {
         return this.categoryService.getCategoryWithIdDesc();
     }
 
@@ -66,8 +67,8 @@ public class CategoriesController {
 
     //  Dto used (necessary) - different version that return 201 status code.
     @PostMapping("/add")
-    public ResponseEntity<GetCategoryResponse> addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
-        return new ResponseEntity<GetCategoryResponse>(categoryService.addCategory(addCategoryRequest), HttpStatus.CREATED);
+    public ResponseEntity<DataResult<GetCategoryResponse>> addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
+        return new ResponseEntity<DataResult<GetCategoryResponse>>(categoryService.addCategory(addCategoryRequest), HttpStatus.CREATED);
     }
 
 

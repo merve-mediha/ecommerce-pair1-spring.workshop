@@ -2,17 +2,18 @@ package com.etiya.ecommercedemopair1.business.abstracts;
 
 import com.etiya.ecommercedemopair1.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
 
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAll();
-    Category getById(int id);
-    List<Category> findAllByName(String name);
-    List<Category> getCategoryWithIdDesc();
-    GetCategoryResponse addCategory(AddCategoryRequest addCategoryRequest);
+    DataResult<List<GetCategoryResponse>> getAll();
+    DataResult<GetCategoryResponse> getById(int id);
+    DataResult<List<GetCategoryResponse>> findAllByName(String name);
+    DataResult<List<GetCategoryResponse>>  getCategoryWithIdDesc();
+    DataResult<GetCategoryResponse> addCategory(AddCategoryRequest addCategoryRequest);
 
-    GetCategoryResponse getCategoryResponse(AddCategoryRequest addCategoryRequest);
+    DataResult<GetCategoryResponse> addCategoryResponse(AddCategoryRequest addCategoryRequest);
 
 }

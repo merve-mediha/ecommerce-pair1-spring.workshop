@@ -1,18 +1,25 @@
 package com.etiya.ecommercedemopair1.business.concretes;
 
 import com.etiya.ecommercedemopair1.business.abstracts.ProductService;
+import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
+import com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse;
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
+import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
 import com.etiya.ecommercedemopair1.entities.concretes.Product;
 import com.etiya.ecommercedemopair1.repository.abstracts.CategoryRepository;
 import com.etiya.ecommercedemopair1.repository.abstracts.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class ProductManager implements ProductService {
@@ -32,18 +39,20 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public List<Product> findAllProductsByStockGreaterThanOrderByStockAsc(int stock) {
-        return productRepository.findAllProductsByStockGreaterThanOrderByStockAsc(stock);
+    public DataResult<List<Product>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock) {
+        return new SuccessDataResult<>(Messages.AllSuffix.getAllSuffixOfMessages + "by stock");
     }
 
     @Override
-    public List<Product> findAllByOrderByNameAsc() {
-        return productRepository.findAllByOrderByNameAsc();
+    public DataResult<List<Product>> findAllByOrderByNameAsc() {
+        return new SuccessDataResult<>(Messages.AllSuffix.getAllSuffixOfMessages + "by name alphabetically");
     }
 
     @Override
-    public Product getByName(String name) {
-        return productRepository.findByName(name);
+    public DataResult<GetProductResponse> getByName(String name) {
+        Product product = productRepository.findByName(name);
+        GetProductResponse getProductResponse = modelMapperService.getMapperforResponse().map(product, GetProductResponse.class);
+        return new SuccessDataResult<GetProductResponse>(getProductResponse, Messages.AllSuffix.getAllSuffixOfMessages+ "by name");
     }
     @Override
     public String getProductNameWithId(int id) {
@@ -51,7 +60,7 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public GetProductResponse addProduct(AddProductRequest addProductRequest) {
+    public DataResult<GetProductResponse> addProduct(AddProductRequest addProductRequest) {
 
         // Mapping
         Product product = modelMapperService.getMapperforRequest().map(addProductRequest,Product.class);
@@ -67,17 +76,24 @@ public class ProductManager implements ProductService {
 
         GetProductResponse getProductResponse = modelMapperService.getMapperforResponse().map(savedProduct,GetProductResponse.class);
 
-        return getProductResponse;
+        return new SuccessDataResult<GetProductResponse>(getProductResponse,Messages.AllSuffix.addSuffixOfMessages);
     }
 
     @Override
-    public List<Product> findProductByCategoryByName(String name) {
-        return productRepository.findProductByCategoryByName(name);
+    public DataResult<List<GetProductResponse>> findProductByCategoryByName(String name) {
+        List<Product> products = productRepository.findProductByCategoryByName(name);
+        List<GetProductResponse> responses = products.stream()
+                .map(product -> modelMapperService.getMapperforResponse()
+                        .map(product, GetProductResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + " by category name");
     }
 
     @Override
-    public List<GetProductResponse> getProductsByCategoryId(int identity) {
-        return productRepository.getProductsByCategoryId(identity);
+    public DataResult<List<GetProductResponse>> getProductsByCategoryId(int identity) {
+       List<GetProductResponse> responses = productRepository.getProductsByCategoryId(identity);
+
+        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by category id");
     }
 
     public void checkCategoryWithId(int id) {

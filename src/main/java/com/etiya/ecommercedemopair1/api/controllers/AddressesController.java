@@ -4,6 +4,8 @@ import com.etiya.ecommercedemopair1.business.abstracts.AddressService;
 import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.address.GetAddressResponse;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
+import com.etiya.ecommercedemopair1.core.util.results.Result;
 import com.etiya.ecommercedemopair1.entities.concretes.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,21 +26,22 @@ public class AddressesController {
     }
 
     @GetMapping("/getAllAddresses")
-    public List<Address> getAll() {
+    public DataResult<List<GetAddressResponse>> getAll() {
         return this.addressService.getAll();
     }
 
 
     @GetMapping("/getAddressesByCityName")
-    public List<Address> getAddressesByCityName(@RequestParam String name){
+    public DataResult<List<GetAddressResponse>> getAddressesByCityName(@RequestParam String name){
         return addressService.getAddressesByCityName(name);
     }
     @PostMapping("/addAddress")
-    public void addAddressInfo(@RequestBody @Valid AddAddressRequest addAddressRequest){
-        addressService.addAddressInfo(addAddressRequest);
-}
+    public Result addAddressInfo(@RequestBody @Valid AddAddressRequest addAddressRequest) {
+       return addressService.addAddressInfo(addAddressRequest);
+
+    }
     @PostMapping("addAddressGetInfo")
-    public ResponseEntity<GetAddressResponse> addAddressWithInfo(@RequestBody AddAddressRequest addAddressRequest) {
-        return new ResponseEntity<GetAddressResponse>(this.addressService.getAddressWithInfo(addAddressRequest), HttpStatus.CREATED);
+    public ResponseEntity<DataResult<GetAddressResponse>> addAddressWithInfo(@RequestBody AddAddressRequest addAddressRequest) {
+        return new ResponseEntity<DataResult<GetAddressResponse>>(this.addressService.getAddressWithInfo(addAddressRequest), HttpStatus.CREATED);
     }
 }

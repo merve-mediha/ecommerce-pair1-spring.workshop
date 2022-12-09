@@ -6,6 +6,7 @@ import com.etiya.ecommercedemopair1.business.abstracts.ProductService;
 import com.etiya.ecommercedemopair1.business.constants.Paths;
 import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
+import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Product;
 
 import org.springframework.data.repository.query.Param;
@@ -37,17 +38,17 @@ public class ProductsController {
     }
 
     @GetMapping("/getAllProductsByStockGreaterThan")
-    public List<Product> findAllProductsByStockGreaterThanOrderByStockAsc(@RequestParam int stock) {
+    public DataResult<List<Product>> findAllProductsByStockGreaterThanOrderByStockAsc(@RequestParam int stock) {
 
         return productService.findAllProductsByStockGreaterThanOrderByStockAsc(stock);
     }
     @GetMapping("/getByName")
-    public Product getByName(@RequestParam("name") String name) {
+    public DataResult<GetProductResponse> getByName(@RequestParam("name") String name) {
         return productService.getByName(name);
     }
 
     @GetMapping("/getAlphabeticProduct")
-    public List<Product> findAllByOrderByNameAsc() {
+    public DataResult<List<Product>> findAllByOrderByNameAsc() {
         return this.productService.findAllByOrderByNameAsc();
     }
 
@@ -57,22 +58,22 @@ public class ProductsController {
     }
 
     @PostMapping("/add")
-    public GetProductResponse addProduct(@RequestBody @Valid AddProductRequest addProductRequest) {
+    public DataResult<GetProductResponse> addProduct(@RequestBody @Valid AddProductRequest addProductRequest) {
         return productService.addProduct(addProductRequest);
     }
 
     @PostMapping("/adddone")
-    public ResponseEntity<GetProductResponse> addProductOne(@RequestBody AddProductRequest addProductRequest) {
-        return new ResponseEntity<GetProductResponse>(productService.addProduct(addProductRequest), HttpStatus.CREATED);
+    public ResponseEntity<DataResult<GetProductResponse>> addProductOne(@RequestBody AddProductRequest addProductRequest) {
+        return new ResponseEntity<DataResult<GetProductResponse>>(productService.addProduct(addProductRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/findByCategoryName")
-    public List<Product> findProductByCategoryByName(@RequestParam("name") String name){
+    public DataResult<List<GetProductResponse>> findProductByCategoryByName(@RequestParam("name") String name){
         return productService.findProductByCategoryByName(name);
     }
 
     @GetMapping("getProductsByCategory")
-    public List<GetProductResponse> getProductsByCategoryId(int identity){
+    public DataResult<List<GetProductResponse>> getProductsByCategoryId(int identity){
         return productService.getProductsByCategoryId(identity);
     }
 
