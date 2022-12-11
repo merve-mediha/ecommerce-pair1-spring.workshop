@@ -54,6 +54,10 @@ public class CustomerManager implements CustomerService {
                         .map(customer, GetCustomerResponse.class)).collect(Collectors.toList());
         return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by customers' gender");
     }
+    @Override
+    public List<GetCustomerResponse> getCustomerResponseWithGender(String gender) {
+        return customerRepository.getCustomerResponseWithGender(gender);
+    }
 
     @Override
     public Result addCustomer(AddCustomerRequest addCustomerRequest) {
@@ -86,4 +90,6 @@ public class CustomerManager implements CustomerService {
     public boolean existsById(int id) {
         return customerRepository.existsById(id);
     }
+
+
 }

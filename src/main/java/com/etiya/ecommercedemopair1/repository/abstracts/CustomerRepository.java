@@ -1,5 +1,6 @@
 package com.etiya.ecommercedemopair1.repository.abstracts;
 
+import com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse;
 import com.etiya.ecommercedemopair1.entities.concretes.Address;
 import com.etiya.ecommercedemopair1.entities.concretes.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     String findEmailByName(String name);
     @Query("select c from Customer c where c.gender=:gender")
     List<Customer> getCustomerWithGender(String gender);
+
+    @Query("select new com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse(c.id,c.email,c.name,c.phone,c.birth_date,c.gender) from Customer as c where c.gender=:gender " +
+            "group by c.id,c.email,c.name,c.phone,c.birth_date,c.gender")
+    List<GetCustomerResponse> getCustomerResponseWithGender(String gender);
+
     boolean existsById(int id);
 
 

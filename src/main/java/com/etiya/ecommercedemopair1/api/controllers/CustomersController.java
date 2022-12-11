@@ -44,6 +44,12 @@ public class CustomersController {
         return this.customerService.getCustomerWithGender(gender);
     }
 
+    @GetMapping("/getCustomerResponseWithGender")
+    public List<GetCustomerResponse> getCustomerResponsesWithGender(@RequestParam("gender") String gender)
+    {
+        return customerService.getCustomerResponseWithGender(gender);
+    }
+
     @PostMapping("/addCustomer")
     public Result addCustomer(@RequestBody AddCustomerRequest addCustomerRequest) {
        return customerService.addCustomer(addCustomerRequest);

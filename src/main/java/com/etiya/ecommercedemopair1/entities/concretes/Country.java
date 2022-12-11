@@ -17,11 +17,11 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
+    private int country_id;
 
     @Column(name="name")
     private String name;
 
     @OneToMany(mappedBy = "country")
-    List<City> cities;
+    private List<City> cities;
 }

@@ -6,7 +6,9 @@ import com.etiya.ecommercedemopair1.business.dtos.request.category.AddCategoryRe
 import com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
+import com.etiya.ecommercedemopair1.repository.abstracts.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +21,13 @@ import java.util.List;
 public class CategoriesController {
 
     private CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoriesController(CategoryService categoryService) { //Dependency Injection
+    public CategoriesController(CategoryService categoryService,
+                                CategoryRepository categoryRepository) { //Dependency Injection
         this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/getAll")
@@ -43,6 +48,11 @@ public class CategoriesController {
     @GetMapping("/getByIdDesc")
     public DataResult<List<GetCategoryResponse>> getCategoryWithIdDesc() {
         return this.categoryService.getCategoryWithIdDesc();
+    }
+
+    @GetMapping("/findCategoryByProductStockGraterThan")
+    public List<Category> findCategoryByProductStockGraterThan(@Param("stock") int stock){
+        return categoryRepository.findCategoryByProductStockGraterThan(stock);
     }
 
     //client

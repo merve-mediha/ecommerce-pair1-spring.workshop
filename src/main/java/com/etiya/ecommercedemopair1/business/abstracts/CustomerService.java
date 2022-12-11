@@ -22,4 +22,6 @@ public interface CustomerService {
     DataResult<GetCustomerResponse> addCustomerWithCustomerInfo(AddCustomerRequest addCustomerRequest); // Bir de Response'lu görelim.addCustomer gibi.
 
     boolean existsById(int id);
+
+    List<GetCustomerResponse> getCustomerResponseWithGender(String gender);
 }

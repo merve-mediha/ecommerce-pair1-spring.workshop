@@ -10,7 +10,6 @@ import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
 import com.etiya.ecommercedemopair1.repository.abstracts.CategoryRepository;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,6 +84,11 @@ public class CategoryManager implements CategoryService {
         GetCategoryResponse getCategoryResponse = modelMapperService.getMapperforResponse().map(savedCategory, GetCategoryResponse.class);
         return new SuccessDataResult<GetCategoryResponse>(getCategoryResponse, Messages.AllSuffix.addSuffixOfMessages);
 
+    }
+
+    @Override
+    public List<Category> findCategoryByProductStockGraterThan(int stock) {
+        return categoryRepository.findCategoryByProductStockGraterThan(stock);
     }
 
     private void checkCategoryNameExists(Category category) {

@@ -25,4 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "as p inner join ProductCategory as pc on p=pc.product inner join Category as c on pc.category=c where c.id in(:identity)" +
             " group by p.name,p.stock,p.unitPrice,p.discountRate")
     List<GetProductResponse> getProductsByCategoryId(int identity);
+
+
 }
