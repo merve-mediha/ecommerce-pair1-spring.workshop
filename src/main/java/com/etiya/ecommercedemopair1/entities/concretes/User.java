@@ -37,7 +37,6 @@ public class User {
     private Date birth_date;
 
     @OneToMany(mappedBy="user")
-    @JsonBackReference
     private List<Address> addresses;
 
 

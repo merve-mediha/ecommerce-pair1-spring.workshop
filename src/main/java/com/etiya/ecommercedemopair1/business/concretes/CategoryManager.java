@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair1.business.abstracts.CategoryService;
 import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse;
+import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
@@ -96,7 +97,7 @@ public class CategoryManager implements CategoryService {
 
         for (Category secondCategory : categories) {
             if (secondCategory.getName().equals(category.getName())) {
-                throw new RuntimeException("This category already exists");
+                throw new BusinessException("This category already exists");
             }
         }
     }

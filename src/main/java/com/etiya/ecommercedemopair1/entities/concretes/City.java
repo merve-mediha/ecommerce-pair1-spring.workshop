@@ -1,6 +1,5 @@
 package com.etiya.ecommercedemopair1.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int city_id;
+    private int id;
 
     @Column(name="name")
     private String name;
@@ -29,7 +28,7 @@ public class City {
     @JoinColumn(name="country_id")
     private Country country;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "city",cascade = CascadeType.ALL)
     private List<Address> addresses;
 
 }

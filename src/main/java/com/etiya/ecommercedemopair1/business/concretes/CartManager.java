@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair1.business.abstracts.CartService;
 import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.cart.AddCartRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.cart.GetCartResponse;
+import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
@@ -49,7 +50,7 @@ public class CartManager implements CartService {
 
         boolean isExists = customerRepository.existsById(id);
         if(!isExists){
-            throw new RuntimeException("yok");
+            throw new BusinessException("This customer doesn't exist in database");
         }
     }
 }

@@ -7,6 +7,7 @@ import com.etiya.ecommercedemopair1.business.abstracts.UserService;
 import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.address.GetAddressResponse;
+import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.Result;
@@ -53,16 +54,11 @@ public class AddressManager implements AddressService {
         return new SuccessDataResult<List<GetAddressResponse>>(responses, Messages.AllSuffix.addSuffixOfMessages);
     }
 
-    @Override
-    public Result addAddress(AddAddressRequest addAddressRequest) {
-        Address address = modelMapperService.getMapperforRequest().map(addAddressRequest, Address.class);
-        addressRepository.save(address);
-
-        return new SuccessResult(Messages.AllSuffix.addSuffixOfMessages);
-    }
 
     @Override
     public Result addAddressInfo(AddAddressRequest addAddressRequest) {
+        checkUserExists(addAddressRequest.getUserId());
+        checkCityExists(addAddressRequest.getCityId());
         // Mapping - > map the attributes from the request to the attributes of the object we created ourselves.
         Address address = modelMapperService.getMapperforRequest().map(addAddressRequest,Address.class);
         addressRepository.save(address);
@@ -77,9 +73,8 @@ public class AddressManager implements AddressService {
         Address address =modelMapperService.getMapperforRequest().map(addAddressRequest,Address.class);
 
         checkUserExists(addAddressRequest.getUserId());
-        checkCountryExists(addAddressRequest.getCountryId());
         checkCityExists(addAddressRequest.getCityId());
-        Address savedAddress = addressRepository.save(address);
+        Address savedAddress = addressRepository.saveAndFlush(address);
 
         GetAddressResponse getAddressResponse = modelMapperService.getMapperforResponse().map(savedAddress,GetAddressResponse.class);
 
@@ -91,7 +86,7 @@ public class AddressManager implements AddressService {
 
         boolean isExist = userService.existsById(id);
         if (!isExist) {
-            throw new RuntimeException(Messages.User.userExists);
+            throw new BusinessException(Messages.User.userExists);
         }
     }
 
@@ -99,7 +94,7 @@ public class AddressManager implements AddressService {
 
         boolean isExist = cityService.existsById(id);
         if (!isExist) {
-            throw new RuntimeException(Messages.City.cityExists);
+            throw new BusinessException(Messages.City.cityExists);
         }
     }
 
@@ -107,7 +102,7 @@ public class AddressManager implements AddressService {
 
         boolean isExist = countryService.existsById(id);
         if (!isExist) {
-            throw new RuntimeException(Messages.Country.countryExists);
+            throw new BusinessException(Messages.Country.countryExists);
         }
     }
 }

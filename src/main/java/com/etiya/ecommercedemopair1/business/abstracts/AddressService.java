@@ -18,7 +18,6 @@ public interface AddressService {
     DataResult<List<GetAddressResponse>> getAll();
 
 
-    Result addAddress(AddAddressRequest addAddressRequest);
 
     Result addAddressInfo(AddAddressRequest addAddressRequest);
 

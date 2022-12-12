@@ -5,6 +5,7 @@ import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse;
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
+import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
@@ -47,11 +48,14 @@ public class ProductManager implements ProductService {
     @Override
     public DataResult<List<GetProductResponse>> findAllProductsByStockGreaterThanOrderByStockAsc(int stock) {
         List<Product> products = productRepository.findAllProductsByStockGreaterThanOrderByStockAsc(stock);
-        List<GetProductResponse> reponses = products.stream()
+        checkGreaterThanStock(products);
+        List<GetProductResponse> responses = products.stream()
                 .map(product -> modelMapperService.getMapperforResponse()
                 .map(product,GetProductResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<>(Messages.AllSuffix.getAllSuffixOfMessages + "by stock");
+        return new SuccessDataResult<List<GetProductResponse>>(responses,Messages.AllSuffix.getAllSuffixOfMessages + "by stock");
     }
+
+
 
     @Override
     public DataResult<List<GetProductResponse>> findAllByOrderByNameAsc() {
@@ -75,13 +79,10 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<GetProductResponse> addProduct(AddProductRequest addProductRequest) {
-
         // Mapping
         Product product = modelMapperService.getMapperforRequest().map(addProductRequest,Product.class);
 
         Category category = new Category();
-
-
         checkCategoryWithId(addProductRequest.getCategoryId());
         category.setId(addProductRequest.getCategoryId());
 
@@ -95,7 +96,12 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<List<GetProductResponse>> findProductByCategoryByName(String name) {
+
         List<Product> products = productRepository.findProductByCategoryByName(name);
+        if(products.size()==0) {
+
+            throw new BusinessException("This category has any product");
+        }
         List<GetProductResponse> responses = products.stream()
                 .map(product -> modelMapperService.getMapperforResponse()
                         .map(product, GetProductResponse.class)).collect(Collectors.toList());
@@ -113,7 +119,14 @@ public class ProductManager implements ProductService {
     public void checkCategoryWithId(int id) {
         boolean isExists = categoryRepository.existsById(id);
         if (!isExists) {
-            throw new RuntimeException("This category doesn't exist. Could not be added prod");
+            //TODO: change all
+            throw new BusinessException("This category doesn't exist. Could not be added prod");
+        }
+    }
+
+    private void checkGreaterThanStock(List<Product> products) {
+        if(products.size()==0){
+            throw  new BusinessException("There are any products greater than given stock");
         }
     }
 

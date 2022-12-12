@@ -25,8 +25,7 @@ public class AddAddressRequest {
     private int userId;
     @Min(value = 0)
     private int cityId;
-    @Min(value = 0)
-    private int countryId;
+
 
 
 }

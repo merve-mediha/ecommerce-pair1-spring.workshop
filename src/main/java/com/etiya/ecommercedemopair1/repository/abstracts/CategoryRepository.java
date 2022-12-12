@@ -17,9 +17,10 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<Category> getCategoryWithIdDesc();
 
 
+
     List<Category> findAll();
 
-    @Query("select distinct c from Category c JOIN c.productCategories pc JOIN pc.product p where p.stock>(:stock)")
+    @Query("select distinct  c from Category c JOIN c.productCategories pc JOIN pc.product p where p.stock>(:stock)")
     List<Category> findCategoryByProductStockGraterThan(@Param("stock") int stock);
 
 }

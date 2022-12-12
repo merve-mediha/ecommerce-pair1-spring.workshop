@@ -24,7 +24,7 @@ public class AddProductRequest {
     @Min(value = 1, message = "price can not be less than 1")
     private double unitPrice;
 
-    @Min(value = 0, message = "Stok Adedi 0'dan kucuk olamaz")
+    @Min(value = 0, message = "Number of stock can not be less than zero")
     private int stock;
     private double discountRate;
 
