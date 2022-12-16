@@ -20,6 +20,8 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Query("select a from Address a JOIN a.city c where c.name=:name")
     List<Address> findAddressByCityName(@Param("name") String name);
 
+    boolean existsById(int id);
+
 
 
 

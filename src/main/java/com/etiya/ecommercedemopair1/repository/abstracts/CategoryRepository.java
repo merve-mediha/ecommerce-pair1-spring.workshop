@@ -13,14 +13,12 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<Category> findAllByName(String name);
-    @Query("select c from Category c order by c.id desc")
-    List<Category> getCategoryWithIdDesc();
-
-
+    @Query("select new com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse(c.id,c.name) from Category c order by c.id desc")
+    List<GetCategoryResponse> getCategoryWithIdDesc();
 
     List<Category> findAll();
 
-    @Query("select distinct  c from Category c JOIN c.productCategories pc JOIN pc.product p where p.stock>(:stock)")
-    List<Category> findCategoryByProductStockGraterThan(@Param("stock") int stock);
+    @Query("select distinct new com.etiya.ecommercedemopair1.business.dtos.response.category.GetCategoryResponse(c.id,c.name) from Category c JOIN c.productCategories pc JOIN pc.product p where p.stock>(:stock)")
+    List<GetCategoryResponse> findCategoryByProductStockGraterThan(@Param("stock") int stock);
 
 }

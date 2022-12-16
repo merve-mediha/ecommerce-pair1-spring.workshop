@@ -17,7 +17,7 @@ public interface AddressService {
     Result getById(int id);
     DataResult<List<GetAddressResponse>> getAll();
 
-
+    boolean existsById(int id);
 
     Result addAddressInfo(AddAddressRequest addAddressRequest);
 

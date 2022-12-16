@@ -54,6 +54,11 @@ public class AddressManager implements AddressService {
         return new SuccessDataResult<List<GetAddressResponse>>(responses, Messages.AllSuffix.addSuffixOfMessages);
     }
 
+    @Override
+    public boolean existsById(int id) {
+        return addressRepository.existsById(id);
+    }
+
 
     @Override
     public Result addAddressInfo(AddAddressRequest addAddressRequest) {

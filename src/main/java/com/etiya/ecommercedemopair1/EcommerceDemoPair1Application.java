@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 @SpringBootApplication
 @Configuration
@@ -34,6 +36,13 @@ public class EcommerceDemoPair1Application {
 	@Bean
 	public ModelMapper getModelMapper() {
 		return new ModelMapper();
+	}
+
+	@Bean
+	public ResourceBundleMessageSource resourceBundleMessageSource(){
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		return messageSource;
 	}
 
 //	@ExceptionHandler
@@ -59,5 +68,6 @@ public class EcommerceDemoPair1Application {
 	public ErrorDataResult<Object> handleBusinessException(BusinessException businessException){
 		return new ErrorDataResult<Object>(businessException.getMessage(),businessException.getClass().getSimpleName());
 	}
+
 
 }

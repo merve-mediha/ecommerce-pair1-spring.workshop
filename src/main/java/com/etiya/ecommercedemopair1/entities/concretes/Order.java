@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="orders")
-public class Order {
+public class Order  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -23,8 +24,7 @@ public class Order {
     @Column(name="order_date")
     private Date orderDate;
 
-    @Column(name="payment_method")
-    private String paymentMethod;
+
 
     @Column(name="isCompleted")
     private boolean isCompleted;
@@ -34,13 +34,16 @@ public class Order {
     @JsonBackReference
     private Address address;
 
+    @OneToOne
+    @JoinColumn(name="cart_id")
+    private Cart cart;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDelivery> orderDeliveries;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderDetail> orderDetails;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
     private List<Payment> payments ;
+
 
 }

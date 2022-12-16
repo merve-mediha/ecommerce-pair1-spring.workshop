@@ -46,7 +46,7 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public DataResult<List<GetCategoryResponse>> getCategoryWithIdDesc() {
-        List<Category> categories = categoryRepository.findAll();
+        List<GetCategoryResponse> categories = categoryRepository.getCategoryWithIdDesc();
         List<GetCategoryResponse> responses = categories.stream().map(category -> modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class)).collect(Collectors.toList());
         return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
     }
@@ -88,7 +88,7 @@ public class CategoryManager implements CategoryService {
     }
 
     @Override
-    public List<Category> findCategoryByProductStockGraterThan(int stock) {
+    public List<GetCategoryResponse> findCategoryByProductStockGraterThan(int stock) {
         return categoryRepository.findCategoryByProductStockGraterThan(stock);
     }
 

@@ -1,5 +1,6 @@
 package com.etiya.ecommercedemopair1.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +26,6 @@ public class Cart {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "cart")
-    private List<OrderDetail> orderDetails;
 
     @OneToMany(mappedBy="cart")
     private List<ProductCart> productCarts;

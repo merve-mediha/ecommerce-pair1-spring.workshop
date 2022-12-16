@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair1.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,12 +41,8 @@ public class Address {
     private City city;
 
 
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-//    @JoinColumn(name="country_id")
-//    private Country country;
-
     @OneToMany(mappedBy = "address")
-    @JsonIgnoreProperties("Address")
+    @JsonIgnore
     private List<Order> orders;
 
 

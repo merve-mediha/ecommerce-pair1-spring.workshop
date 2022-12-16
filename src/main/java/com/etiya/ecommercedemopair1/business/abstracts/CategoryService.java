@@ -17,6 +17,6 @@ public interface CategoryService {
 
     DataResult<GetCategoryResponse> addCategoryResponse(AddCategoryRequest addCategoryRequest);
 
-    List<Category> findCategoryByProductStockGraterThan(@Param("stock") int stock);
+    List<GetCategoryResponse> findCategoryByProductStockGraterThan(@Param("stock") int stock);
 
 }

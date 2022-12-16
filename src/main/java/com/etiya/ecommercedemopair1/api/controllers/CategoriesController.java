@@ -52,7 +52,7 @@ public class CategoriesController {
     }
 
     @GetMapping("/findCategoryByProductStockGraterThan")
-    public List<Category> findCategoryByProductStockGraterThan(@Param("stock") int stock){
+    public List<GetCategoryResponse> findCategoryByProductStockGraterThan(@RequestParam("stock") int stock){
         return categoryRepository.findCategoryByProductStockGraterThan(stock);
     }
 

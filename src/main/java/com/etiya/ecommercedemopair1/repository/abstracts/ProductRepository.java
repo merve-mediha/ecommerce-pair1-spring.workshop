@@ -1,7 +1,11 @@
 package com.etiya.ecommercedemopair1.repository.abstracts;
 
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
+import com.etiya.ecommercedemopair1.business.dtos.response.product.ListProductResponse;
 import com.etiya.ecommercedemopair1.entities.concretes.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,6 +31,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<GetProductResponse> getProductsByCategoryId(int identity);
 
 
+    @Query("Select p from Product as p")
+    Slice<Product> getAllWithSlice(Pageable pageable);
 
+   /* @Query("Select new com.etiya.ecommercedemopair1.business.dtos.response.product.ListProductResponse(p.id,p.name) from Product as p")
+    Page<ListProductResponse> getAllWithPagewResponse(Pageable pageable);
+*/
 
 }

@@ -5,6 +5,7 @@ import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.customer.GetCustomerResponse;
 import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductResponse;
+import com.etiya.ecommercedemopair1.business.dtos.response.product.ListProductResponse;
 import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
@@ -16,6 +17,9 @@ import com.etiya.ecommercedemopair1.repository.abstracts.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -116,10 +120,25 @@ public class ProductManager implements ProductService {
         return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by category id");
     }
 
+    @Override
+    public Page<Product> findAllWithPagination(Pageable pageable) {
+
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Slice<Product> findAllWithSlice(Pageable pageable) {
+        return productRepository.getAllWithSlice(pageable);
+    }
+
+ /*   @Override
+    public Page<ListProductResponse> getAllWithPagewResponse(Pageable pageable) {
+        return productRepository.getAllWithPagewResponse(pageable);
+    }*/
+
     public void checkCategoryWithId(int id) {
         boolean isExists = categoryRepository.existsById(id);
         if (!isExists) {
-            //TODO: change all
             throw new BusinessException("This category doesn't exist. Could not be added prod");
         }
     }

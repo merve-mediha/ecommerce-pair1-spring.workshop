@@ -9,6 +9,7 @@ import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Cart;
+import com.etiya.ecommercedemopair1.entities.concretes.Product;
 import com.etiya.ecommercedemopair1.repository.abstracts.CartRepository;
 import com.etiya.ecommercedemopair1.repository.abstracts.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,11 @@ public class CartManager implements CartService {
         GetCartResponse response = modelMapperService.getMapperforResponse().map(savedCart, GetCartResponse.class);
 
         return new SuccessDataResult<GetCartResponse>(response, Messages.AllSuffix.getAllSuffixOfMessages);
+    }
+
+    @Override
+    public List<Product> findProductsByCartId(int id) {
+        return cartRepository.findProductsByCartId(id);
     }
 
 

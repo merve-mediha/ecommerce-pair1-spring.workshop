@@ -10,10 +10,10 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 
-    @Query("select new com.etiya.ecommercedemopair1.business.dtos.response.order.GetOrderResponse(o.id,o.orderDate,o.paymentMethod,o.isCompleted) from Order" +
+    @Query("select new com.etiya.ecommercedemopair1.business.dtos.response.order.GetOrderResponse(o.id,o.orderDate,o.isCompleted) from Order" +
             " as o inner join Address as a" +
             " on o.address=a where a.id in(:identity) " +
-            "group by o.id,o.orderDate,o.paymentMethod,o.isCompleted")
+            "group by o.id,o.orderDate,o.isCompleted")
     List<GetOrderResponse> getOrderWithAddressId(int identity);
 
 }
