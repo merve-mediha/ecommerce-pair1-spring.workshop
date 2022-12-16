@@ -19,6 +19,7 @@ import com.etiya.ecommercedemopair1.repository.abstracts.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,7 +42,11 @@ public class OrderManager implements OrderService {
     }
 
     @Override
+    @Transactional
     public DataResult<GetOrderResponse> addOrder(AddOrderRequest addOrderRequest) {
+        checkAddressIfExists(addOrderRequest.getAddressId());
+        checkProductAtCart(addOrderRequest.getCartId());
+
         Order order = modelMapperService.getMapperforRequest().map(addOrderRequest, Order.class);
         order.setOrderDate(Date.from(Instant.now()));
 
@@ -71,8 +76,16 @@ public class OrderManager implements OrderService {
     public void checkProductAtCart(int id) {
         List<Product> products = cartService.findProductsByCartId(id);
         if (products.size() == 0) {
-            throw new BusinessException("Cart couldnot found");
+            throw new BusinessException("Cart has any product");
 
+        }
+    }
+    public void checkAddressIfExists(int id)
+    {
+        boolean isExists=addressService.existsById(id);
+        if(!isExists)
+        {
+            throw new BusinessException("Address couldnot found");
         }
 
     }
