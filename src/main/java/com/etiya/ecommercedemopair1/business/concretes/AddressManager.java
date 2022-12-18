@@ -37,7 +37,7 @@ public class AddressManager implements AddressService {
     public DataResult<List<GetAddressResponse>> getAddressesByCityName(String name) {
         List<Address> addresses = addressRepository.findAddressByCityName(name);
         List<GetAddressResponse> responses = addresses.stream().map(address -> modelMapperService.getMapperforResponse().map(address,GetAddressResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetAddressResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by city name");
+        return new SuccessDataResult<List<GetAddressResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase + "by city name");
     }
 
     @Override

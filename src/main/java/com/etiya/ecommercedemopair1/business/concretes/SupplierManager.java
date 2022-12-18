@@ -5,6 +5,7 @@ import com.etiya.ecommercedemopair1.business.constants.Messages;
 import com.etiya.ecommercedemopair1.business.dtos.request.supplier.AddSupplierRequest;
 import com.etiya.ecommercedemopair1.business.dtos.response.supplier.GetSupplierResponse;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair1.core.util.messages.MessageService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.Result;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
@@ -23,6 +24,7 @@ public class SupplierManager implements SupplierService {
 
     private SupplierRepository supplierRepository;
     private final ModelMapperService modelMapperService;
+    private MessageService messageService;
 
     @Override
     public Result addSupplier(AddSupplierRequest addSupplierRequest) {
@@ -30,7 +32,7 @@ public class SupplierManager implements SupplierService {
         Supplier supplier = modelMapperService.getMapperforRequest().map(addSupplierRequest, Supplier.class);
 
         supplierRepository.save(supplier);
-        return new SuccessResult(Messages.AllSuffix.addSuffixOfMessages);
+        return new SuccessResult(messageService.getMessage(Messages.AllSuffix.addSuffixOfMessages));
     }
 
     @Override
@@ -43,7 +45,7 @@ public class SupplierManager implements SupplierService {
 
         GetSupplierResponse getSupplierResponse = modelMapperService.getMapperforResponse()
                 .map(savedSupplier, GetSupplierResponse.class);
-        return new SuccessDataResult<GetSupplierResponse>(getSupplierResponse,Messages.AllSuffix.addSuffixOfMessages);
+        return new SuccessDataResult<GetSupplierResponse>(getSupplierResponse,messageService.getMessage(Messages.AllSuffix.addSuffixOfMessages));
 
     }
 
@@ -53,6 +55,6 @@ public class SupplierManager implements SupplierService {
         List<GetSupplierResponse> responses = suppliers.stream()
                 .map(supplier -> modelMapperService.getMapperforResponse()
                 .map(supplier,GetSupplierResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetSupplierResponse>>(responses,Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetSupplierResponse>>(responses,messageService.getMessage(Messages.AllSuffix.allFetchedFromDatabase));
     }
 }

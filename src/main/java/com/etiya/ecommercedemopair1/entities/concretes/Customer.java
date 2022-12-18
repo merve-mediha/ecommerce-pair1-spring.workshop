@@ -22,7 +22,8 @@ public class Customer extends User  {
     @Column(name="gender")
     private String gender;
 
-
+    @OneToOne(mappedBy = "customer")
+    private Cart cart;
 
 
 

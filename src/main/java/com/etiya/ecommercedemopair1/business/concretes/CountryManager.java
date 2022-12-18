@@ -40,7 +40,7 @@ public class CountryManager implements CountryService {
         List<AddCountryResponse> responses = countries.stream()
                 .map(country -> modelMapperService.getMapperforResponse()
                         .map(country,AddCountryResponse.class)).collect(Collectors.toList());
-        return  new SuccessDataResult<List<AddCountryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return  new SuccessDataResult<List<AddCountryResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class CustomerManager implements CustomerService {
         List<GetCustomerResponse> responses = customers.stream()
                 .map(customer -> modelMapperService.getMapperforResponse()
                         .map(customer, GetCustomerResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CustomerManager implements CustomerService {
         List<GetCustomerResponse> responses = customers.stream()
                 .map(customer -> modelMapperService.getMapperforResponse()
                         .map(customer, GetCustomerResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by customers' gender");
+        return new SuccessDataResult<List<GetCustomerResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase + "by customers' gender");
     }
     @Override
     public List<GetCustomerResponse> getCustomerResponseWithGender(String gender) {

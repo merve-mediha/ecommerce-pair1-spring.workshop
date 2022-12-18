@@ -26,12 +26,18 @@ public class InvoiceManager implements InvoiceService {
 
     @Override
     public Result add(Invoice invoice){
-        Invoice invoice1= invoiceRepository.save(invoice);
+        Invoice invoice1= new Invoice();
+        invoice1.setOrder(invoice.getOrder());
+        invoice1.setTotalInvoicePrice(invoice.getTotalInvoicePrice());
+        invoice1.setInvoiceDate(invoice.getInvoiceDate());
+        invoice1.setInvoiceNumber(invoice.getInvoiceNumber());
+        invoiceRepository.save(invoice1);
+
       return new SuccessResult(Messages.AllSuffix.addSuffixOfMessages);
     }
 
     @Override
     public DataResult<List<Invoice>> getAll(){
-        return new SuccessDataResult<List<Invoice>>(invoiceRepository.findAll(),Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<Invoice>>(invoiceRepository.findAll(),Messages.AllSuffix.allFetchedFromDatabase);
     }
 }

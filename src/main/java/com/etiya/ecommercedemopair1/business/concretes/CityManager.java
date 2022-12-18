@@ -47,7 +47,7 @@ public class CityManager implements CityService {
         List<AddCityResponse> responses = cities.stream()
                 .map(city -> modelMapperService.getMapperforResponse()
                         .map(city,AddCityResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<AddCityResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<AddCityResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override

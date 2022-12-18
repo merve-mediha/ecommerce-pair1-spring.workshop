@@ -2,6 +2,7 @@ package com.etiya.ecommercedemopair1.business.concretes;
 
 import com.etiya.ecommercedemopair1.business.abstracts.UserService;
 import com.etiya.ecommercedemopair1.business.constants.Messages;
+import com.etiya.ecommercedemopair1.core.util.messages.MessageService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.User;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.Service;
 public class UserManager implements UserService {
 
     private UserRepository userRepository;
+    private MessageService messageService;
 
 
     @Override
     public DataResult<User> findById(int id) {
         User user = userRepository.findById(id);
-        return new SuccessDataResult<User>(user, Messages.AllSuffix.getByIdSuffixOfMessages);
+        return new SuccessDataResult<User>(user, messageService.getMessage(Messages.User.usergetted));
     }
 
     @Override

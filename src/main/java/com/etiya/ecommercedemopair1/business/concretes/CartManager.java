@@ -33,7 +33,7 @@ public class CartManager implements CartService {
                 .map(cart-> modelMapperService.getMapperforResponse()
                         .map(cart,GetCartResponse.class)).collect(Collectors.toList());
 
-        return new SuccessDataResult<List<GetCartResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCartResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CartManager implements CartService {
         Cart savedCart = cartRepository.save(cart);
         GetCartResponse response = modelMapperService.getMapperforResponse().map(savedCart, GetCartResponse.class);
 
-        return new SuccessDataResult<GetCartResponse>(response, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<GetCartResponse>(response, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override

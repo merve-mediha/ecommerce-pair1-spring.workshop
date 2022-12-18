@@ -27,7 +27,7 @@ public class CategoryManager implements CategoryService {
     public DataResult<List<GetCategoryResponse>> getAll() {
         List<Category> categories = categoryRepository.findAll();
         List<GetCategoryResponse> responses = categories.stream().map(category -> modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override
@@ -41,14 +41,14 @@ public class CategoryManager implements CategoryService {
     public DataResult<List<GetCategoryResponse>> findAllByName(String name) {
         List<Category> categories = categoryRepository.findAllByName(name);
         List<GetCategoryResponse> responses = categories.stream().map(category -> modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
     @Override
     public DataResult<List<GetCategoryResponse>> getCategoryWithIdDesc() {
         List<GetCategoryResponse> categories = categoryRepository.getCategoryWithIdDesc();
         List<GetCategoryResponse> responses = categories.stream().map(category -> modelMapperService.getMapperforResponse().map(category, GetCategoryResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetCategoryResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase);
     }
 
 

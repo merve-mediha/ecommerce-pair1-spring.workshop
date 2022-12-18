@@ -1,13 +1,11 @@
 package com.etiya.ecommercedemopair1;
 
+
 import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.results.ErrorDataResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -18,13 +16,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 @SpringBootApplication
-@Configuration
 @EnableJpaRepositories(basePackages = {"com.etiya.ecommercedemopair1.repository.abstracts"})
 @RestControllerAdvice
 public class EcommerceDemoPair1Application {
@@ -40,9 +40,19 @@ public class EcommerceDemoPair1Application {
 
 	@Bean
 	public ResourceBundleMessageSource resourceBundleMessageSource(){
+		// Veritabanı bağlantısı..
+		// Dosyadan çekme işlemi..
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		// Veritabanına git
+		// Select * from Languages Where code='tr' and key='greetings' isteğinden dönen cevap senin çevirindir.
 		messageSource.setBasename("messages");
 		return messageSource;
+	}
+	@Bean
+	public LocaleResolver localeResolver() {
+		AcceptHeaderLocaleResolver localeResolver=new AcceptHeaderLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.US);
+		return localeResolver;
 	}
 
 //	@ExceptionHandler

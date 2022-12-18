@@ -8,6 +8,7 @@ import com.etiya.ecommercedemopair1.business.dtos.response.product.GetProductRes
 import com.etiya.ecommercedemopair1.business.dtos.response.product.ListProductResponse;
 import com.etiya.ecommercedemopair1.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair1.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair1.core.util.messages.MessageService;
 import com.etiya.ecommercedemopair1.core.util.results.DataResult;
 import com.etiya.ecommercedemopair1.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair1.entities.concretes.Category;
@@ -31,6 +32,7 @@ public class ProductManager implements ProductService {
     private final ProductRepository productRepository;
     private CategoryRepository categoryRepository;
     private final ModelMapperService modelMapperService;
+    private MessageService messageService;
 
 
     @Override
@@ -39,14 +41,14 @@ public class ProductManager implements ProductService {
         List<GetProductResponse> responses = products.stream()
                 .map(product -> modelMapperService.getMapperforResponse()
                         .map(product,GetProductResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages);
+        return new SuccessDataResult<List<GetProductResponse>>(responses, messageService.getMessage(Messages.AllSuffix.allFetchedFromDatabase));
     }
 
     @Override
     public DataResult<GetProductResponse> getById(int id) {
         Product product = productRepository.findById(id).orElseThrow();
         GetProductResponse response = modelMapperService.getMapperforResponse().map(product,GetProductResponse.class);
-        return new SuccessDataResult<GetProductResponse>(response, Messages.AllSuffix.getByIdSuffixOfMessages);
+        return new SuccessDataResult<GetProductResponse>(response, messageService.getMessage(Messages.Product.productWasFound));
     }
 
     @Override
@@ -56,7 +58,7 @@ public class ProductManager implements ProductService {
         List<GetProductResponse> responses = products.stream()
                 .map(product -> modelMapperService.getMapperforResponse()
                 .map(product,GetProductResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetProductResponse>>(responses,Messages.AllSuffix.getAllSuffixOfMessages + "by stock");
+        return new SuccessDataResult<List<GetProductResponse>>(responses,messageService.getMessage(Messages.Product.productGreaterThanStock));
     }
 
 
@@ -67,14 +69,14 @@ public class ProductManager implements ProductService {
         List<GetProductResponse> getProductResponses= products.stream()
                 .map(product -> modelMapperService.getMapperforResponse()
                 .map(product,GetProductResponse.class)).collect(Collectors.toList());
-        return new SuccessDataResult<List<GetProductResponse>>(Messages.AllSuffix.getAllSuffixOfMessages + "by name alphabetically");
+        return new SuccessDataResult<List<GetProductResponse>>(getProductResponses,messageService.getMessage(Messages.Product.productByName));
     }
 
     @Override
     public DataResult<GetProductResponse> getByName(String name) {
         Product product = productRepository.findByName(name);
         GetProductResponse getProductResponse = modelMapperService.getMapperforResponse().map(product, GetProductResponse.class);
-        return new SuccessDataResult<GetProductResponse>(getProductResponse, Messages.AllSuffix.getAllSuffixOfMessages+ "by name");
+        return new SuccessDataResult<GetProductResponse>(getProductResponse, Messages.AllSuffix.allFetchedFromDatabase+ "by name");
     }
     @Override
     public String getProductNameWithId(int id) {
@@ -110,14 +112,14 @@ public class ProductManager implements ProductService {
                 .map(product -> modelMapperService.getMapperforResponse()
                         .map(product, GetProductResponse.class)).collect(Collectors.toList());
 
-        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + " by category name");
+        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase + " by category name");
     }
 
     @Override
     public DataResult<List<GetProductResponse>> getProductsByCategoryId(int identity) {
        List<GetProductResponse> responses = productRepository.getProductsByCategoryId(identity);
 
-        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.getAllSuffixOfMessages + "by category id");
+        return new SuccessDataResult<List<GetProductResponse>>(responses, Messages.AllSuffix.allFetchedFromDatabase + "by category id");
     }
 
     @Override
